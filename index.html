@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Issuer Bond Amortization</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Kieso Style • Issuer Only</p>
+        <h1>Bond Issue Price & Amortization Schedule</h1>
+        <p class="sub">Untuk sisi penerbit obligasi: hitung proceeds/harga penerbitan, diskonto/premium, jadwal bunga sesuai tanggal, amortisasi, dan jurnal otomatis.</p>
+      </div>
+      <button id="loadExample" class="secondary">Load contoh Kieso</button>
+    </header>
+
+    <main class="grid">
+      <section class="card input-card">
+        <h2>Input Obligasi</h2>
+        <div class="form-grid">
+          <label>Face Value / Maturity Value
+            <input id="faceValue" type="number" value="100000" min="0" step="0.01" />
+          </label>
+          <label>Mode Harga Penerbitan
+            <select id="priceMode">
+              <option value="calculate" selected>Hitung dari PV seperti Kieso</option>
+              <option value="known">Issue price sudah diketahui</option>
+            </select>
+          </label>
+          <label id="issuePriceWrap">Issue Price / Proceeds
+            <input id="issuePrice" type="number" value="92278" min="0" step="0.01" />
+          </label>
+          <label>Coupon Rate per tahun (%)
+            <input id="couponRate" type="number" value="8" min="0" step="0.0001" />
+          </label>
+          <label>Market / Effective Rate per tahun (%)
+            <input id="marketRate" type="number" value="10" min="0" step="0.0001" />
+          </label>
+          <label>Pembayaran bunga per tahun
+            <select id="paymentsPerYear">
+              <option value="1">Annual</option>
+              <option value="2" selected>Semiannual</option>
+              <option value="4">Quarterly</option>
+              <option value="12">Monthly</option>
+            </select>
+          </label>
+          <label>Tanggal penerbitan
+            <input id="issueDate" type="date" value="2025-01-01" />
+          </label>
+          <label>Tanggal pembayaran bunga pertama
+            <input id="firstPaymentDate" type="date" value="2025-07-01" />
+          </label>
+          <label>Tanggal jatuh tempo
+            <input id="maturityDate" type="date" value="2030-01-01" />
+          </label>
+          <label>Metode amortisasi
+            <select id="method">
+              <option value="effective" selected>Effective-Interest Method</option>
+              <option value="straight">Straight-Line Method</option>
+            </select>
+          </label>
+        </div>
+        <button id="calculate" class="primary">Hitung</button>
+        <p class="note">Mode “Hitung dari PV” cocok untuk soal Kieso ketika harga penerbitan belum diketahui.</p>
+      </section>
+
+      <section class="card summary-card">
+        <h2>Ringkasan</h2>
+        <div id="summary" class="summary"></div>
+      </section>
+    </main>
+
+    <section class="card table-card">
+      <div class="table-head">
+        <div>
+          <p class="eyebrow">Schedule</p>
+          <h2 id="tableTitle">Bond Amortization Schedule</h2>
+        </div>
+        <div class="actions">
+          <button id="printBtn" class="secondary">Print</button>
+          <button id="csvBtn" class="secondary">Export CSV</button>
+        </div>
+      </div>
+      <div class="pv-box" id="pvBox"></div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Periode</th>
+              <th>Date</th>
+              <th>Cash Paid</th>
+              <th>Interest Expense</th>
+              <th id="amortHeader">Discount/Premium Amortized</th>
+              <th>Carrying Amount of Bonds</th>
+            </tr>
+          </thead>
+          <tbody id="scheduleBody"></tbody>
+          <tfoot id="scheduleFoot"></tfoot>
+        </table>
+      </div>
+    </section>
+
+    <section class="grid bottom-grid">
+      <section class="card">
+        <h2>Detail Rumus</h2>
+        <div id="formulaBox" class="formula-box">Klik salah satu baris tabel untuk melihat rumus.</div>
+      </section>
+      <section class="card">
+        <h2>Jurnal Issuer</h2>
+        <div id="journalBox" class="journal-box"></div>
+      </section>
+    </section>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
